@@ -1,2 +1,48 @@
-:root{color-scheme:light;--page:#f4f7f4;--surface:#fff;--subtle:#fafcf9;--input:#fff;--output:#f5faf6;--inset:#eaf0eb;--text:#1c302b;--secondary:#425d53;--muted:#78877d;--placeholder:#a3ada5;--border:#dfe7df;--faint:#d7e4d7;--accent:#247259;--accent-hover:#185b45;--on-accent:#fff;--green-line:#cbe0ce;--selected:#e6f1e7;--hover:#edf4ee;--code:#246048;--danger:#b03d38;--shadow:#23422c06}
-html[data-appearance=dark]{color-scheme:dark;--page:#101d1d;--surface:#162524;--subtle:#182a28;--input:#132321;--output:#142b25;--inset:#10211e;--text:#e0eade;--secondary:#b4c9bc;--muted:#7f9b8c;--placeholder:#5b7466;--border:#2c4037;--faint:#293e33;--accent:#b9e5a6;--accent-hover:#c6f0b5;--on-accent:#1a3a26;--green-line:#3d5b43;--selected:#293e2f;--hover:#253b31;--code:#b7dfa7;--danger:#ffa497;--shadow:#00000012}
+:root {
+  color-scheme: light;
+  --page:#f4f7f4;
+  --surface:#fff;
+  --subtle:#fafcf9;
+  --input:#fff;
+  --output:#f5faf6;
+  --inset:#eaf0eb;
+  --text:#1c302b;
+  --secondary:#425d53;
+  --muted:#78877d;
+  --placeholder:#a3ada5;
+  --border:#dfe7df;
+  --faint:#d7e4d7;
+  --accent:#247259;
+  --accent-hover:#185b45;
+  --on-accent:#fff;
+  --green-line:#cbe0ce;
+  --selected:#e6f1e7;
+  --hover:#edf4ee;
+  --code:#246048;
+  --danger:#b03d38;
+  --shadow:#23422c06;
+}
+html[data-appearance=dark] {
+  color-scheme: dark;
+  --page:#101d1d;
+  --surface:#162524;
+  --subtle:#182a28;
+  --input:#132321;
+  --output:#142b25;
+  --inset:#10211e;
+  --text:#e0eade;
+  --secondary:#b4c9bc;
+  --muted:#7f9b8c;
+  --placeholder:#5b7466;
+  --border:#2c4037;
+  --faint:#293e33;
+  --accent:#b9e5a6;
+  --accent-hover:#c6f0b5;
+  --on-accent:#1a3a26;
+  --green-line:#3d5b43;
+  --selected:#293e2f;
+  --hover:#253b31;
+  --code:#b7dfa7;
+  --danger:#ffa497;
+  --shadow:#00000012;
+}
