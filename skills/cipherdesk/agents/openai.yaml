@@ -1,0 +1,4 @@
+interface:
+  display_name: "CipherDesk 密码工具箱"
+  short_description: "在本地完成开发调试中的加解密、签名、编码与 JWT 校验，明确字节和算法参数"
+  default_prompt: "使用 $cipherdesk 在本地处理这份数据，明确算法与编码，验证结果并避免泄露密钥。"

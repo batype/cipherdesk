@@ -1,0 +1,60 @@
+{
+  "name": "@batype/cipherdesk",
+  "version": "1.0.0",
+  "description": "Local developer crypto workbench: Web Crypto AES/RSA/HMAC, hashes, SM3/SM4, codecs, JWT inspection and PBKDF2.",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.14"
+  },
+  "exports": {
+    ".": {
+      "types": "./node/index.d.ts",
+      "import": "./src/core.mjs"
+    }
+  },
+  "bin": {
+    "cipherdesk": "./bin/cipherdesk.mjs"
+  },
+  "files": [
+    "src/core.mjs",
+    "bin/",
+    "node/",
+    "README.md",
+    "LICENSE",
+    "THIRD-PARTY-LICENSES.txt",
+    "skills/cipherdesk/",
+    "docs/api.md"
+  ],
+  "scripts": {
+    "dev": "node scripts/serve.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "build": "node scripts/build.mjs",
+    "prepack": "node --check src/core.mjs && node --check bin/cipherdesk.mjs"
+  },
+  "dependencies": {
+    "@noble/hashes": "2.4.0",
+    "sm-crypto": "0.5.7"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/batype/cipherdesk.git"
+  },
+  "homepage": "https://batype.github.io/cipherdesk/",
+  "keywords": [
+    "crypto",
+    "aes",
+    "rsa",
+    "sm4",
+    "hmac",
+    "jwt",
+    "developer-tools"
+  ]
+}

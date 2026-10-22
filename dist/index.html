@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; worker-src 'self'; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="theme-color" content="#f4f7f4"><meta name="description" content="开发者的本地密码工具箱。AES、RSA、SM3/SM4、哈希、HMAC、JWT、编码与密钥派生。免费开源，数据不上传。">
+<title>CipherDesk · 开发者密码工具箱</title><link rel="icon" href="./icon.svg" type="image/svg+xml"><link rel="stylesheet" href="./style.css"><script src="./appearance.js"></script><script type="module" src="./app.mjs"></script>
+</head>
+<body>
+<a class="skip" href="#workspace">跳到工作区</a>
+<header class="topbar"><a class="brand" href="./"><img src="./icon.svg" width="34" height="34" alt=""><span>CipherDesk<small>开发者密码工具箱</small></span></a><div class="top-actions"><span class="local-pill"><i></i> 本地运行 · 数据不上传</span><a href="https://github.com/batype/cipherdesk" target="_blank" rel="noopener noreferrer">GitHub ↗</a><label class="sr-only" for="appearance">界面主题</label><select id="appearance" aria-label="界面主题"><option value="system">跟随系统</option><option value="light">亮色模式</option><option value="dark">暗色模式</option></select></div></header>
+<div class="shell">
+<aside class="sidebar"><div class="nav-label">YOUR CRYPTO WORKBENCH</div><nav id="tools" aria-label="密码工具"></nav><div class="sidebar-note"><span class="note-mark">⌘</span><strong>小工具，大用处。</strong><p>让每一次编码、签名和加解密，少开几个标签页。</p><a href="./cipherdesk-source.zip" download>下载开源源码 ↗</a></div><div class="edition">DAILY TOOLS <span>NO. 003</span></div></aside>
+<main id="workspace" tabindex="-1">
+<section class="intro"><div><p class="eyebrow">PRIVATE BY DEFAULT. OPEN BY DESIGN.</p><h1>让密文，清楚可控<span>。</span></h1><p>从一段字符串到一对密钥，常用密码工具都在手边。</p></div><div class="intro-symbol" aria-hidden="true"><span>{</span><b>✳</b><span>}</span></div></section>
+<section class="workbench" aria-labelledby="tool-title">
+<div class="tool-heading"><div><div class="breadcrumb">TOOLBOX / <span id="tool-code"></span></div><h2 id="tool-title"></h2><p id="tool-desc"></p></div><span id="tool-badge" class="tag"></span></div>
+<div class="toolbar"><div id="operations" role="group" aria-label="操作类型"></div><div class="toolbar-actions"><button id="sample" type="button">载入示例</button><button id="clear" type="button">清空全部</button><button id="run" class="primary" type="button">开始加密 <span>↗</span></button></div></div>
+<details class="parameters" id="parameters" open><summary><span>算法与参数 <small id="parameter-summary"></small></span><span class="chevron">⌄</span></summary><div class="fields" id="fields"></div></details>
+<p class="context-note" id="context-note"></p>
+<div class="editor-grid"><section class="editor input-editor"><div class="editor-top"><label for="input"><span class="status-dot"></span><span id="input-label">输入内容</span></label><span id="input-count">0 B</span></div><textarea id="input" spellcheck="false" autocomplete="off" autocapitalize="off" placeholder="粘贴需要处理的内容，或载入示例…"></textarea><div class="editor-bottom"><span>仅在当前页面内存中处理</span><label class="file-action">导入文本<input id="file" type="file" accept=".txt,.json,.pem,.jwt,text/*,application/json"></label></div></section><section class="editor output-editor"><div class="editor-top"><label for="output"><span class="status-dot"></span>处理结果</label><span id="result-status">等待输入</span></div><textarea id="output" spellcheck="false" readonly placeholder="结果将在这里出现。"></textarea><div class="editor-bottom"><button id="reuse" disabled type="button">结果 → 输入</button><div><button id="download" disabled type="button">下载</button><button id="copy" disabled type="button">复制结果</button></div></div></section></div>
+<div id="message" role="status" aria-live="polite"></div><dl id="result-details" class="result-details"></dl>
+</section>
+<section class="explain-grid"><article><span>01 / ENCRYPT</span><h3>加密，需要密钥解密</h3><p>AES、SM4、RSA 用于保护内容。默认 AES-GCM 同时校验密文完整性。</p></article><article><span>02 / HASH</span><h3>摘要，用于校验</h3><p>SHA、SM3、MD5 不可逆；HMAC 用共享密钥校验消息，两者都不能“解密”。</p></article><article><span>03 / ENCODE</span><h3>编码，便于传输</h3><p>Base64、Hex、URL 是数据表达方式。任何人都能还原，它们不保护秘密。</p></article></section>
+<footer><span>Crafted for developers. <strong>MIT 开源</strong></span><a href="https://github.com/batype/cipherdesk/issues" target="_blank" rel="noopener noreferrer">反馈与建议 ↗</a><span>Web Crypto + noble-hashes + sm-crypto</span></footer>
+</main></div><noscript>请启用 JavaScript。此工具使用浏览器本地密码能力。</noscript>
+</body></html>
