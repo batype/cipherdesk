@@ -1,5 +1,15 @@
 # 验证记录 · 2026-10-22
 
+## v1.0.1 · AES-192 兼容修复
+
+- 根因已在线复现：Chromium Web Crypto对24字节密钥返回`192-bit AES keys are not supported`；Node原生实现同样输入可以运行。参见[Chromium AES实现](https://raw.githubusercontent.com/chromium/chromium/main/components/webcrypto/algorithms/aes.cc)。
+- 修复范围：仅AES-192通过noble-ciphers实现GCM/CBC/CTR；AES-128/256仍走Web Crypto。保留v1密文包、GCM末尾16字节Tag、CBC的PKCS#7及CTR低64位计数约定。原始密钥和PBKDF2派生均覆盖。没有迁移前端框架或处理其他审查项。
+- `npm test`：22组通过。原AES互操作测试扩展为128/192/256 × GCM/CBC/CTR；新增模拟浏览器拒绝192位原生密钥、外部密文解密、口令派生、CTR跨32/64位边界、认证/填充错误和空/整块/最大1MiB输入测试。
+- 浏览器真实操作：三种模式 × 三种位数共9种原始密钥组合均加密后解密还原；AES-192三种模式的口令派生也通过，使用默认600000次迭代。控制台无error/warn。
+- Node发布包重新在工程外安装，验证AES-192与CLI。上线后的复测结果见本次GitHub Release说明。
+
+下面保留v1.0.0初版验证记录。
+
 ## 自动化
 
 Node.js24.13.0，`npm test`：16组通过。

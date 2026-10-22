@@ -10,7 +10,7 @@
 
 | 工具 | 首版支持 | 约定 |
 |---|---|---|
-| AES | GCM、CBC、CTR；128 / 192 / 256 位 | 默认 GCM；每次加密生成新 IV |
+| AES | GCM、CBC、CTR；128 / 192 / 256 位 | 默认 GCM；每次加密生成新 IV；AES-192 提供浏览器兼容实现 |
 | RSA | OAEP 加解密、PSS / PKCS#1 v1.5 签名与验签、生成密钥对 | SHA-256；SPKI 公钥 / 未加密 PKCS#8 私钥 |
 | 国密 | SM3 摘要、SM4 CBC / ECB | SM4 为 128 位，PKCS#7 填充 |
 | 摘要 | MD5、SHA-1、SHA-256/384/512、SHA3-256/512 | 不可逆；MD5 / SHA-1 仅兼容 |
@@ -48,7 +48,7 @@ npm run dev
 # http://127.0.0.1:4181/
 ```
 
-构建使用 esbuild 打包本地算法库，网页仅加载同源静态资源。推送 main 后 GitHub Actions 安装依赖、测试、构建并自动部署 Pages。首次部署需在仓库 Settings → Pages 选择 GitHub Actions。
+构建使用 esbuild 打包本地算法库，网页仅加载同源静态资源。AES-128/256 使用 Web Crypto；AES-192 使用 noble-ciphers，兼容 Chromium 不支持 192 位 AES 密钥的限制，密文包格式不变。推送 main 后 GitHub Actions 安装依赖、测试、构建并自动部署 Pages。首次部署需在仓库 Settings → Pages 选择 GitHub Actions。
 
 ## Node API / CLI
 

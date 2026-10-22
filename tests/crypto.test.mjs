@@ -22,12 +22,13 @@ test("HMAC RFC4231 and verification rejects changed content", async () => {
   assert.equal((await runTask({ ...job, op: "verify", signature: output, input: "changed" })).details.verified, false);
 });
 test("AES modes interoperate with node crypto; fresh IV and authenticated tamper rejection", async () => {
-  for (const algorithm of ["AES-GCM", "AES-CBC", "AES-CTR"]) {
-    const job = { tool: "aes", op: "encrypt", algorithm, key: "21".repeat(32), input: "中文 message 🔐", aad: algorithm === "AES-GCM" ? "context" : "" };
+  for (const bytes of [16, 24, 32]) for (const algorithm of ["AES-GCM", "AES-CBC", "AES-CTR"]) {
+    const job = { tool: "aes", op: "encrypt", algorithm, key: "21".repeat(bytes), input: "中文 message 🔐", aad: algorithm === "AES-GCM" ? "context" : "" };
     const encrypted = await runTask(job), bundle = JSON.parse(encrypted.output), again = JSON.parse((await runTask(job)).output);
     assert.notEqual(bundle.iv, again.iv);
     assert.equal(bundle.key, void 0);
-    const cipher = Buffer.from(bundle.ciphertext, "base64"), dec = createDecipheriv(algorithm.toLowerCase().replace("aes-", "aes-256-"), Buffer.from(job.key, "hex"), Buffer.from(bundle.iv, "base64"));
+    assert.equal(bundle.bits, bytes * 8);
+    const cipher = Buffer.from(bundle.ciphertext, "base64"), dec = createDecipheriv(algorithm.toLowerCase().replace("aes-", `aes-${bytes * 8}-`), Buffer.from(job.key, "hex"), Buffer.from(bundle.iv, "base64"));
     let data = cipher;
     if (algorithm === "AES-GCM") {
       dec.setAuthTag(cipher.subarray(-16));

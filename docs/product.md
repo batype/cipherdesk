@@ -26,7 +26,7 @@
 
 ## 实现依据
 
-- [Web Crypto](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto)：AES、RSA、HMAC、PBKDF2交给平台实现，不自行写密码算法。
+- [Web Crypto](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto)：AES-128/256、RSA、HMAC、PBKDF2交给平台实现；AES-192使用[noble-ciphers](https://github.com/paulmillr/noble-ciphers)兼容Chromium的限制，不自行写密码算法。
 - [OWASP Cryptographic Storage](https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html)：优先带认证模式；旧模式清晰提示限制。
 - [OWASP Password Storage](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html)：PBKDF2-HMAC-SHA256默认600000；快速摘要与密码存储区分。
 - [RFC 8017](https://datatracker.ietf.org/doc/html/rfc8017)：OAEP消息长度k−2hLen−2，2048位与SHA256组合最多190字节。

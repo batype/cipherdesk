@@ -2,7 +2,8 @@ import { md5 } from "@noble/hashes/legacy.js";
 import { sha3_256, sha3_512 } from "@noble/hashes/sha3.js";
 import sm3 from "sm-crypto/src/sm3/index.js";
 import sm4 from "sm-crypto/src/sm4/index.js";
-export const VERSION = "1.0.0", MAX_BYTES = 1024 * 1024;
+import { aes192 } from "./aes192.mjs";
+export const VERSION = "1.0.1", MAX_BYTES = 1024 * 1024;
 const encoder = new TextEncoder(), decoder = new TextDecoder("utf-8", { fatal: true });
 const fail = (message) => {
   throw new Error(message);
@@ -144,9 +145,11 @@ async function aes(job) {
   else if (!iv) iv = decodeBytes(job.iv ?? "", "hex");
   if (iv.length !== (mode === "AES-GCM" ? 12 : 16)) fail(`${mode} 的 IV 必须为 ${mode === "AES-GCM" ? 12 : 16} 字节`);
   const algorithm = mode === "AES-GCM" ? { name: mode, iv, tagLength: 128, additionalData: aad } : mode === "AES-CTR" ? { name: mode, counter: iv, length: 64 } : { name: mode, iv };
-  const cryptoKey = await subtle().importKey("raw", key, mode, false, [encrypt ? "encrypt" : "decrypt"]);
+  const compatible = bits === 192 ? aes192(mode, key, iv, aad) : null;
+  const cryptoKey = compatible ? null : await subtle().importKey("raw", key, mode, false, [encrypt ? "encrypt" : "decrypt"]);
   if (encrypt) {
-    cipher = new Uint8Array(await subtle().encrypt(algorithm, cryptoKey, decodeBytes(job.input ?? "", job.inputFormat ?? "utf8")));
+    const input = decodeBytes(job.input ?? "", job.inputFormat ?? "utf8");
+    cipher = compatible ? compatible.encrypt(input) : new Uint8Array(await subtle().encrypt(algorithm, cryptoKey, input));
     const bundle = { app: "CipherDesk", v: 1, algorithm: mode, bits, iv: encodeBytes(iv), ciphertext: encodeBytes(cipher) };
     if (mode === "AES-GCM") {
       bundle.tagLength = 128;
@@ -160,7 +163,7 @@ async function aes(job) {
   if (mode === "AES-GCM" && cipher.length < 16) fail("GCM 密文必须包含末尾 16 字节认证 Tag");
   let plain;
   try {
-    plain = new Uint8Array(await subtle().decrypt(algorithm, cryptoKey, cipher));
+    plain = compatible ? compatible.decrypt(cipher) : new Uint8Array(await subtle().decrypt(algorithm, cryptoKey, cipher));
   } catch {
     fail("解密失败：密钥、IV、AAD、认证 Tag 或密文不匹配");
   }
